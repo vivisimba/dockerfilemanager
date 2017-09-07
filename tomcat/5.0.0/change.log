@@ -1,0 +1,26 @@
+20170904 from 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v4.0.0 to 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v5.0.0
+
+latest --> v5.0.0
+change info:
+	modify /usr/local/tomcat/conf/server.xml    change value of maxHttpHeaderSize to 81920 
+	JAVA_OPTS="$JAVA_OPTS -XX:-UseGCOverheadLimit"
+
+
+
+
+
+20170821 from 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v3.0.0 to 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v4.0.0
+change info:
+	modify /public-boss-jarfiles jar list to 20170802 from wangbin
+
+
+
+
+
+
+
+
+20170810 from 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v2.0.0 to 10.0.251.196/comm/tomcat8.0.33_fluntd2.3.4:v3.0.0
+change info:
+	modify /usr/local/tomcat/conf/server.xml add:     maxHttpHeaderSize="8192000" in line 69
+	Afferent environment variable : JAVA_OPTS="$JAVA_OPTS -server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heapdump"

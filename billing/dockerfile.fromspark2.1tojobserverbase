@@ -1,0 +1,39 @@
+FROM 10.0.251.196/platform/spark:2.1.0
+
+# spark-jobserver 0.6.2
+RUN ln -s /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/spark
+ENV SPARK_HOME=/usr/local/spark
+ADD spark-jobserver0.8.0 /opt/spark-jobserver0.8.0
+RUN chmod +x /opt/spark-jobserver0.8.0/*.sh && ln -s  /opt/spark-jobserver0.8.0  /opt/spark-jobserver
+
+ENV JOBSERVER_HOME=/opt/spark-jobserver
+ENV PATH=$PATH:$JOBSERVER_HOME
+
+EXPOSE 8092
+
+RUN ["mkdir", "-p", "\/database"]
+VOLUME ["\/database"]
+
+# spark-driver log
+ENV LOG_DIR=/tmp/billing
+
+# start spark-jobserver
+#CMD ["/opt/spark-jobserver/server_start.sh"]
+
+ENV SPARK_MASTER="spark://spark-master:7077"
+
+# docker.conf
+#ADD docker.conf.standalone $JOBSERVER_HOME/docker.conf
+ADD ./docker.conf $JOBSERVER_HOME/docker.conf
+
+EXPOSE 18080
+RUN mkdir -p /app/libs
+COPY ./thirdJars/* /app/libs/
+#ADD ./app/libs/ojdbc6.jar /app/libs/ojdbc6.jar
+#RUN mkdir -p /app/libs && ln -s  /opt/spark-jobserver0.6.2/spark-job-server.jar /app/libs/spark-job-server.jar && ln -s /opt/spark-1.6.0-bin-hadoop2.6/lib/spark-assembly-1.6.0-hadoop2.6.0.jar /app/libs/spark-assembly-1.6.0-hadoop2.6.0.jar
+
+
+# start spark-jobserver
+#ADD start_standalone.sh /
+#RUN chmod +x /start_standalone.sh
+#CMD ["/start_standalone.sh"]

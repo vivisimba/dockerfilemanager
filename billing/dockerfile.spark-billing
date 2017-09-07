@@ -1,0 +1,6 @@
+FROM 10.0.251.196/platform/spark-jobserverbasic:0.8.0
+ADD ./buildbillingimage/conf /app/conf
+COPY ./buildbillingimage/*.sh /app/
+#COPY ./billing/build/libs/* /app/libs/
+COPY ./buildbillingimage/Jarfilefolder/* /app/libs/
+RUN ln -s /app/start_standalone.sh /start_standalone.sh && chmod 777 /*.sh && chmod 777 /app/*.sh
